@@ -1,0 +1,237 @@
+@import "tailwindcss";
+
+/* ── General Sans (todos los pesos) ─────────────────────────── */
+@font-face {
+  font-family: 'General Sans';
+  src: url('/fonts/general-sans/GeneralSans-Extralight.otf') format('opentype');
+  font-weight: 200; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: 'General Sans';
+  src: url('/fonts/general-sans/GeneralSans-ExtralightItalic.otf') format('opentype');
+  font-weight: 200; font-style: italic; font-display: swap;
+}
+@font-face {
+  font-family: 'General Sans';
+  src: url('/fonts/general-sans/GeneralSans-Light.otf') format('opentype');
+  font-weight: 300; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: 'General Sans';
+  src: url('/fonts/general-sans/GeneralSans-LightItalic.otf') format('opentype');
+  font-weight: 300; font-style: italic; font-display: swap;
+}
+@font-face {
+  font-family: 'General Sans';
+  src: url('/fonts/general-sans/GeneralSans-Regular.otf') format('opentype');
+  font-weight: 400; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: 'General Sans';
+  src: url('/fonts/general-sans/GeneralSans-Italic.otf') format('opentype');
+  font-weight: 400; font-style: italic; font-display: swap;
+}
+@font-face {
+  font-family: 'General Sans';
+  src: url('/fonts/general-sans/GeneralSans-Medium.otf') format('opentype');
+  font-weight: 500; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: 'General Sans';
+  src: url('/fonts/general-sans/GeneralSans-MediumItalic.otf') format('opentype');
+  font-weight: 500; font-style: italic; font-display: swap;
+}
+@font-face {
+  font-family: 'General Sans';
+  src: url('/fonts/general-sans/GeneralSans-Semibold.otf') format('opentype');
+  font-weight: 600; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: 'General Sans';
+  src: url('/fonts/general-sans/GeneralSans-SemiboldItalic.otf') format('opentype');
+  font-weight: 600; font-style: italic; font-display: swap;
+}
+@font-face {
+  font-family: 'General Sans';
+  src: url('/fonts/general-sans/GeneralSans-Bold.otf') format('opentype');
+  font-weight: 700; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: 'General Sans';
+  src: url('/fonts/general-sans/GeneralSans-BoldItalic.otf') format('opentype');
+  font-weight: 700; font-style: italic; font-display: swap;
+}
+
+/* ── Jimmy Script (detalles editoriales + nombre) ────────────── */
+@font-face {
+  font-family: 'Jimmy Script';
+  src: url('/fonts/jimmy-script.otf') format('opentype');
+  font-weight: 400; font-style: normal; font-display: swap;
+}
+
+@theme {
+  /* Portfolio fonts */
+  --font-body: 'General Sans', sans-serif;
+  --font-display: 'Jimmy Script', cursive;
+  --font-handsome: 'Jimmy Script', cursive;
+
+  /* Portfolio colors */
+  --color-bg: hsl(0 0% 4%);
+  --color-surface: hsl(0 0% 8%);
+  --color-text-primary: hsl(0 0% 96%);
+  --color-muted: hsl(0 0% 53%);
+  --color-stroke: hsl(0 0% 12%);
+  --color-accent: hsl(0 0% 96%);
+
+  /* shadcn/ui compatible tokens (dark) */
+  --color-background: hsl(0 0% 4%);
+  --color-foreground: hsl(0 0% 96%);
+  --color-card: hsl(0 0% 8%);
+  --color-card-foreground: hsl(0 0% 96%);
+  --color-popover: hsl(0 0% 6%);
+  --color-popover-foreground: hsl(0 0% 96%);
+  --color-primary: hsl(0 0% 96%);
+  --color-primary-foreground: hsl(0 0% 4%);
+  --color-secondary: hsl(0 0% 12%);
+  --color-secondary-foreground: hsl(0 0% 96%);
+  --color-muted: hsl(0 0% 12%);
+  --color-muted-foreground: hsl(0 0% 53%);
+  --color-accent-ui: hsl(0 0% 15%);
+  --color-accent-ui-foreground: hsl(0 0% 96%);
+  --color-border: hsl(0 0% 12%);
+  --color-input: hsl(0 0% 12%);
+  --color-ring: hsl(214 100% 68%);
+
+  --radius: 0.75rem;
+}
+
+/* shadcn CSS vars for runtime usage */
+:root {
+  --bg: 0 0% 4%;
+  --surface: 0 0% 8%;
+  --text: 0 0% 96%;
+  --muted: 0 0% 53%;
+  --stroke: 0 0% 12%;
+  --accent: 0 0% 96%;
+  --turquoise: 174 60% 47%;
+
+  /* shadcn aliases */
+  --background: 0 0% 4%;
+  --foreground: 0 0% 96%;
+  --card: 0 0% 8%;
+  --card-foreground: 0 0% 96%;
+  --popover: 0 0% 6%;
+  --popover-foreground: 0 0% 96%;
+  --primary: 0 0% 96%;
+  --primary-foreground: 0 0% 4%;
+  --secondary: 0 0% 12%;
+  --secondary-foreground: 0 0% 96%;
+  --muted-foreground: 0 0% 53%;
+  --border: 0 0% 12%;
+  --input: 0 0% 12%;
+  --ring: 214 100% 68%;
+  --radius: 0.75rem;
+}
+
+/* ── Light mode overrides ── */
+.light {
+  --bg: 0 0% 97%;
+  --surface: 0 0% 91%;
+  --text: 0 0% 8%;
+  --muted: 0 0% 42%;
+  --stroke: 0 0% 83%;
+  --accent: 0 0% 8%;
+  --turquoise: 174 55% 36%;
+
+  --background: 0 0% 97%;
+  --foreground: 0 0% 8%;
+  --card: 0 0% 91%;
+  --card-foreground: 0 0% 8%;
+  --popover: 0 0% 94%;
+  --popover-foreground: 0 0% 8%;
+  --primary: 0 0% 8%;
+  --primary-foreground: 0 0% 97%;
+  --secondary: 0 0% 83%;
+  --secondary-foreground: 0 0% 8%;
+  --muted-foreground: 0 0% 42%;
+  --border: 0 0% 83%;
+  --input: 0 0% 83%;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: hsl(var(--bg));
+  color: hsl(var(--text));
+  font-family: 'General Sans', sans-serif;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+
+#root {
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
+  text-align: left;
+}
+
+.font-display {
+  font-family: 'Jimmy Script', cursive;
+}
+
+.font-handsome {
+  font-family: 'Jimmy Script', cursive;
+}
+
+.font-body {
+  font-family: 'General Sans', sans-serif;
+}
+
+.accent-gradient {
+  background: linear-gradient(90deg, #89AACC 0%, #4E85BF 100%);
+}
+
+.accent-gradient-text {
+  background: linear-gradient(90deg, #89AACC 0%, #4E85BF 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+@keyframes scroll-down {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(200%); }
+}
+
+@keyframes role-fade-in {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes gradient-shift {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.4; }
+}
+
+@keyframes logo-scroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+.animate-scroll-down   { animation: scroll-down 1.5s ease-in-out infinite; }
+.animate-role-fade-in  { animation: role-fade-in 0.4s ease-out forwards; }
+.animate-gradient-shift { animation: gradient-shift 6s ease infinite; background-size: 200% 200%; }
+.animate-pulse-dot     { animation: pulse-dot 2s ease-in-out infinite; }
