@@ -136,12 +136,9 @@ export default function ZoomParallax() {
     scale4, scale5, scale6, scale7, scale8, scale9,
   };
 
-  // All images flat for the mobile grid (center first, then surrounding)
-  const allSrcs = pictures.map((p) => p.src);
-
   return (
     <>
-      {/* ── DESKTOP: scroll zoom parallax ── */}
+      {/* ── DESKTOP only: scroll zoom parallax — hidden on mobile ── */}
       <div ref={container} className="hidden md:block" style={{ height: "200vh", position: "relative" }}>
         <div
           style={{
@@ -199,38 +196,6 @@ export default function ZoomParallax() {
         </div>
       </div>
 
-      {/* ── MOBILE: responsive image grid ── */}
-      <div className="block md:hidden px-4 py-10" style={{ backgroundColor: "hsl(var(--bg))" }}>
-        {/* Center image full width */}
-        <div style={{ borderRadius: 14, overflow: "hidden", marginBottom: 12 }}>
-          <img
-            src={allSrcs[0]}
-            alt=""
-            draggable={false}
-            style={{ width: "100%", height: "auto", display: "block" }}
-          />
-        </div>
-        {/* Surrounding images in a 2-column grid */}
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10 }}>
-          {allSrcs.slice(1).map((src, i) => (
-            <div
-              key={i}
-              style={{
-                borderRadius: 10,
-                overflow: "hidden",
-                aspectRatio: "4/5",
-              }}
-            >
-              <img
-                src={src}
-                alt=""
-                draggable={false}
-                style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
-              />
-            </div>
-          ))}
-        </div>
-      </div>
     </>
   );
 }
