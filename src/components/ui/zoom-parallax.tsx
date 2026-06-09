@@ -136,76 +136,101 @@ export default function ZoomParallax() {
     scale4, scale5, scale6, scale7, scale8, scale9,
   };
 
+  // All images flat for the mobile grid (center first, then surrounding)
+  const allSrcs = pictures.map((p) => p.src);
+
   return (
-    <div ref={container} style={{ height: "200vh", position: "relative" }}>
-      {/* Sticky panel — visible for the full 300vh scroll range */}
-      <div
-        style={{
-          position: "sticky",
-          top: 0,
-          height: "100vh",
-          overflow: "hidden",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
-        {pictures.map((pic, i) => (
-          <motion.div
-            key={i}
-            style={{
-              scale: pic.layout === "flex" ? scaleCenter : scaleMap[pic.scale],
-              position: "absolute",
-              inset: 0,
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-          >
-            {pic.layout === "flex" ? (
-              // Center image — flex-centered, natural height from image ratio
-              <div style={{ position: "relative", width: pic.width, flexShrink: 0 }}>
-                <img
-                  src={pic.src}
-                  alt=""
-                  draggable={false}
+    <>
+      {/* ── DESKTOP: scroll zoom parallax ── */}
+      <div ref={container} className="hidden md:block" style={{ height: "200vh", position: "relative" }}>
+        <div
+          style={{
+            position: "sticky",
+            top: 0,
+            height: "100vh",
+            overflow: "hidden",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          {pictures.map((pic, i) => (
+            <motion.div
+              key={i}
+              style={{
+                scale: pic.layout === "flex" ? scaleCenter : scaleMap[pic.scale],
+                position: "absolute",
+                inset: 0,
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              {pic.layout === "flex" ? (
+                <div style={{ position: "relative", width: pic.width, flexShrink: 0 }}>
+                  <img
+                    src={pic.src}
+                    alt=""
+                    draggable={false}
+                    style={{ width: "100%", height: "auto", display: "block", borderRadius: 14 }}
+                  />
+                </div>
+              ) : (
+                <div
                   style={{
-                    width: "100%",
-                    height: "auto",      // ← preserves original rectangle ratio
-                    display: "block",
-                    borderRadius: 14,
+                    position: "absolute",
+                    top: pic.top,
+                    left: pic.left,
+                    width: pic.width,
+                    height: pic.height,
+                    transform: "translate(-50%, -50%)",
                   }}
-                />
-              </div>
-            ) : (
-              // Surrounding images — centered at their top/left coordinates
-              <div
-                style={{
-                  position: "absolute",
-                  top: pic.top,
-                  left: pic.left,
-                  width: pic.width,
-                  height: pic.height,
-                  transform: "translate(-50%, -50%)",
-                }}
-              >
-                <img
-                  src={pic.src}
-                  alt=""
-                  draggable={false}
-                  style={{
-                    width: "100%",
-                    height: "100%",
-                    objectFit: "cover",
-                    borderRadius: 10,
-                    display: "block",
-                  }}
-                />
-              </div>
-            )}
-          </motion.div>
-        ))}
+                >
+                  <img
+                    src={pic.src}
+                    alt=""
+                    draggable={false}
+                    style={{ width: "100%", height: "100%", objectFit: "cover", borderRadius: 10, display: "block" }}
+                  />
+                </div>
+              )}
+            </motion.div>
+          ))}
+        </div>
       </div>
-    </div>
+
+      {/* ── MOBILE: responsive image grid ── */}
+      <div className="block md:hidden px-4 py-10" style={{ backgroundColor: "hsl(var(--bg))" }}>
+        {/* Center image full width */}
+        <div style={{ borderRadius: 14, overflow: "hidden", marginBottom: 12 }}>
+          <img
+            src={allSrcs[0]}
+            alt=""
+            draggable={false}
+            style={{ width: "100%", height: "auto", display: "block" }}
+          />
+        </div>
+        {/* Surrounding images in a 2-column grid */}
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10 }}>
+          {allSrcs.slice(1).map((src, i) => (
+            <div
+              key={i}
+              style={{
+                borderRadius: 10,
+                overflow: "hidden",
+                aspectRatio: "4/5",
+              }}
+            >
+              <img
+                src={src}
+                alt=""
+                draggable={false}
+                style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
+              />
+            </div>
+          ))}
+        </div>
+      </div>
+    </>
   );
 }

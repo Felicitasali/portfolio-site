@@ -68,6 +68,7 @@ export default function AboutMe() {
   const [openExp, setOpenExp] = useState<number | null>(null);
   const [openEdu, setOpenEdu] = useState<number | null>(null);
   const [showExpEdu, setShowExpEdu] = useState(false);
+  const [photoColor, setPhotoColor] = useState(false);
 
   return (
     <section
@@ -105,10 +106,11 @@ export default function AboutMe() {
             transition={{ duration: 0.9, ease: easing }}
             className="relative"
           >
-            {/* Photo container — B&W by default, color on hover */}
+            {/* Photo container — B&W by default, color on hover or tap */}
             <div
-              className="group relative overflow-hidden rounded-2xl"
+              className="group relative overflow-hidden rounded-2xl cursor-pointer"
               style={{ aspectRatio: "3/4", maxWidth: "420px", backgroundColor: "hsl(var(--surface))" }}
+              onClick={() => setPhotoColor((v) => !v)}
             >
               {/* Color photo underneath */}
               <img
@@ -117,11 +119,12 @@ export default function AboutMe() {
                 className="absolute inset-0 w-full h-full object-cover object-top"
                 draggable={false}
               />
-              {/* B&W photo on top — fades out on hover */}
+              {/* B&W photo on top — fades out on hover or when tapped */}
               <img
                 src="/images/foto.png"
                 alt="Felicitas Ali — Diseñadora Digital"
                 className="absolute inset-0 w-full h-full object-cover object-top transition-opacity duration-700 ease-in-out group-hover:opacity-0"
+                style={{ opacity: photoColor ? 0 : undefined }}
                 draggable={false}
               />
 

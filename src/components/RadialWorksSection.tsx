@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { RadialScrollGallery } from '@/components/ui/portfolio-and-image-gallery';
 import { X, ChevronLeft, ChevronRight } from 'lucide-react';
@@ -212,6 +212,97 @@ function Lightbox({
   );
 }
 
+/* ── Mobile Carousel ── */
+
+function MobileProjectCarousel({
+  onSelect,
+}: {
+  onSelect: (project: Project) => void;
+}) {
+  const [current, setCurrent] = useState(0);
+  const touchStartX = useRef<number | null>(null);
+
+  const prev = () => setCurrent((c) => (c - 1 + projects.length) % projects.length);
+  const next = () => setCurrent((c) => (c + 1) % projects.length);
+
+  const onTouchStart = (e: React.TouchEvent) => {
+    touchStartX.current = e.touches[0].clientX;
+  };
+  const onTouchEnd = (e: React.TouchEvent) => {
+    if (touchStartX.current === null) return;
+    const diff = touchStartX.current - e.changedTouches[0].clientX;
+    if (Math.abs(diff) > 40) diff > 0 ? next() : prev();
+    touchStartX.current = null;
+  };
+
+  const project = projects[current];
+
+  return (
+    <div className="px-5 pb-10">
+      {/* Card */}
+      <div
+        className="relative overflow-hidden rounded-2xl cursor-pointer"
+        style={{ aspectRatio: '3/4', backgroundColor: 'hsl(var(--surface))', border: '1px solid hsl(var(--stroke))' }}
+        onTouchStart={onTouchStart}
+        onTouchEnd={onTouchEnd}
+        onClick={() => onSelect(project)}
+      >
+        <img
+          src={project.img}
+          alt={project.title}
+          className="absolute inset-0 w-full h-full object-cover"
+        />
+        <div
+          className="absolute inset-0"
+          style={{ background: 'linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.1) 60%, transparent 100%)' }}
+        />
+        <div className="absolute bottom-0 left-0 right-0 p-5">
+          <p className="text-xs mb-1" style={{ color: 'hsl(var(--turquoise))' }}>{project.category}</p>
+          <h3 className="text-xl font-medium" style={{ color: 'white' }}>{project.title}</h3>
+          <div className="mt-2">
+            <span className="text-xs px-3 py-1 rounded-full" style={{ backgroundColor: 'hsl(var(--turquoise))', color: '#0a0a0a', fontWeight: 600 }}>
+              Ver proyecto →
+            </span>
+          </div>
+        </div>
+      </div>
+
+      {/* Controls */}
+      <div className="flex items-center justify-between mt-5">
+        <button
+          onClick={prev}
+          style={{ width: 44, height: 44, borderRadius: '50%', border: '1px solid hsl(var(--stroke))', backgroundColor: 'transparent', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'hsl(var(--muted))', fontSize: 18 }}
+        >←</button>
+
+        {/* Dots */}
+        <div className="flex gap-2">
+          {projects.map((_, i) => (
+            <button
+              key={i}
+              onClick={() => setCurrent(i)}
+              style={{
+                width: i === current ? 22 : 7,
+                height: 7,
+                borderRadius: 4,
+                backgroundColor: i === current ? 'hsl(var(--turquoise))' : 'hsl(var(--stroke))',
+                border: 'none',
+                cursor: 'pointer',
+                padding: 0,
+                transition: 'width 0.3s ease, background-color 0.3s ease',
+              }}
+            />
+          ))}
+        </div>
+
+        <button
+          onClick={next}
+          style={{ width: 44, height: 44, borderRadius: '50%', border: '1px solid hsl(var(--stroke))', backgroundColor: 'transparent', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'hsl(var(--muted))', fontSize: 18 }}
+        >→</button>
+      </div>
+    </div>
+  );
+}
+
 /* ── Main Section ── */
 
 export default function RadialWorksSection() {
@@ -266,11 +357,18 @@ export default function RadialWorksSection() {
         </div>
 
         <p className="text-sm md:text-base mx-auto mb-1 whitespace-nowrap" style={{ color: 'hsl(var(--muted))' }}>
-          Hacé click en cualquier proyecto para ver más detalles &nbsp;↓
+          <span className="hidden md:inline">Hacé click en cualquier proyecto para ver más detalles &nbsp;↓</span>
+          <span className="inline md:hidden">Deslizá o usá las flechas para navegar &nbsp;↓</span>
         </p>
       </div>
 
-      {/* Radial gallery */}
+      {/* Mobile carousel */}
+      <div className="block md:hidden mt-8">
+        <MobileProjectCarousel onSelect={(p) => setSelectedProject(p)} />
+      </div>
+
+      {/* Radial gallery — desktop only */}
+      <div className="hidden md:block">
       <RadialScrollGallery
         baseRadius={480}
         mobileRadius={200}
@@ -294,6 +392,7 @@ export default function RadialWorksSection() {
           })
         }
       </RadialScrollGallery>
+      </div>
 
       {/* Project Modal */}
       <AnimatePresence>

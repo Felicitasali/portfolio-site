@@ -72,8 +72,16 @@ const fadeUp = {
 };
 
 export default function ServicesSection() {
-  // Tracks which service row's back image is being directly hovered
+  // Tracks which service row's back image is being directly hovered (desktop)
   const [hoveredBackIdx, setHoveredBackIdx] = useState<number | null>(null);
+  // Tracks which row is being hovered (desktop) — drives image reveal
+  const [hoveredRowIdx, setHoveredRowIdx] = useState<number | null>(null);
+  // Tracks which row is "active" via tap on mobile
+  const [activeIdx, setActiveIdx] = useState<number | null>(null);
+
+  const handleRowTap = (i: number) => {
+    setActiveIdx((prev) => (prev === i ? null : i));
+  };
 
   return (
     <section
@@ -106,6 +114,7 @@ export default function ServicesSection() {
         <div>
           {services.map((service, i) => {
             const backOnTop = hoveredBackIdx === i;
+            const isActive = hoveredRowIdx === i || activeIdx === i;
 
             return (
               <motion.div
@@ -119,6 +128,9 @@ export default function ServicesSection() {
                 <div
                   className="group relative overflow-visible cursor-default"
                   style={{ borderTop: '1px solid hsl(var(--stroke))' }}
+                  onMouseEnter={() => setHoveredRowIdx(i)}
+                  onMouseLeave={() => setHoveredRowIdx(null)}
+                  onClick={() => handleRowTap(i)}
                 >
                   <div className="relative flex items-center py-6 md:py-8 gap-5 md:gap-8">
 
@@ -136,30 +148,32 @@ export default function ServicesSection() {
 
                     {/* Title */}
                     <h2
-                      className="flex-1 font-light tracking-tight leading-none select-none
-                        transition-opacity duration-500 ease-out group-hover:opacity-20"
+                      className="flex-1 font-light tracking-tight leading-none select-none transition-opacity duration-500 ease-out"
                       style={{
                         fontSize: 'clamp(3rem, 6.5vw, 8rem)',
                         color: 'hsl(var(--text))',
+                        opacity: isActive ? 0.2 : 1,
                       }}
                     >
                       {service.text}
                     </h2>
 
-                    {/* Image reveal — desktop only */}
+                    {/* Image reveal — desktop hover OR mobile tap */}
                     <div
                       aria-hidden="true"
-                      className="hidden md:flex absolute inset-y-0 right-[12%] w-44 items-center"
+                      className="flex absolute inset-y-0 right-[8%] md:right-[12%] w-36 md:w-44 items-center"
                     >
-                      <div className="relative w-44 h-56">
+                      <div className="relative w-36 md:w-44 h-48 md:h-56">
 
-                        {/* Back image — peeks out; comes to front when directly hovered */}
+                        {/* Back image */}
                         <div
                           className="absolute inset-0 overflow-hidden rounded-xl cursor-pointer
-                            scale-0 opacity-0 transition-all duration-300 ease-out delay-150
-                            group-hover:scale-100 group-hover:opacity-90
-                            group-hover:translate-x-14 group-hover:translate-y-3 group-hover:rotate-8"
-                          style={{ zIndex: backOnTop ? 5 : 1 }}
+                            transition-all duration-300 ease-out delay-150"
+                          style={{
+                            zIndex: backOnTop ? 5 : 1,
+                            transform: isActive ? 'scale(1) translateX(3.5rem) translateY(0.75rem) rotate(8deg)' : 'scale(0)',
+                            opacity: isActive ? 0.9 : 0,
+                          }}
                           onMouseEnter={() => setHoveredBackIdx(i)}
                           onMouseLeave={() => setHoveredBackIdx(null)}
                         >
@@ -175,9 +189,13 @@ export default function ServicesSection() {
                         {/* Front image */}
                         <div
                           className="absolute inset-0 overflow-hidden rounded-xl cursor-pointer
-                            scale-0 opacity-0 transition-all duration-500 ease-out delay-75
-                            group-hover:scale-100 group-hover:opacity-100 group-hover:shadow-2xl"
-                          style={{ zIndex: backOnTop ? 1 : 2 }}
+                            transition-all duration-500 ease-out delay-75"
+                          style={{
+                            zIndex: backOnTop ? 1 : 2,
+                            transform: isActive ? 'scale(1)' : 'scale(0)',
+                            opacity: isActive ? 1 : 0,
+                            boxShadow: isActive ? '0 25px 50px rgba(0,0,0,0.5)' : 'none',
+                          }}
                           onMouseEnter={() => setHoveredBackIdx(null)}
                         >
                           <img
