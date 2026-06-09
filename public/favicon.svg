@@ -2,12 +2,12 @@
   <circle cx="50" cy="50" r="50" fill="#000000"/>
   <text
     x="50"
-    y="66"
+    y="68"
     text-anchor="middle"
-    font-family="Georgia, 'Times New Roman', serif"
-    font-size="40"
-    font-weight="700"
+    font-family="Arial Black, Arial, sans-serif"
+    font-size="52"
+    font-weight="900"
     fill="#30B0B8"
-    letter-spacing="-1"
+    letter-spacing="-3"
   >FA</text>
 </svg>
