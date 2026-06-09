@@ -7,11 +7,13 @@ const tools = [
   "Adobe Premiere Pro",
   "Figma",
   "Canva",
-  "Cupcut",
+  "CapCut",
   "Meta Business Suite",
   "Salesforce Marketing Cloud",
   "Brandwatch",
   "Veeva Vault",
+  "Crownpeak",
+  "Cerby",
 ];
 
 const experience = [
@@ -20,28 +22,28 @@ const experience = [
     company: "dBlend",
     period: "2025 – Actualidad",
     description:
-      "Diseño y desarrollo de digital content para múltiples cuentas de redes sociales. Creación de piezas visuales alineadas a brand guidelines y objetivos de marketing. Fotografía y video editing para cobertura de eventos y contenido promocional.",
+      "Content Creation y Social Media Management para múltiples marcas. Diseño de piezas gráficas para redes sociales, campañas digitales y branding. Video Editing y cobertura de eventos para contenido promocional. Diseño de identidad visual, páginas web y materiales de comunicación.",
   },
   {
     role: "Digital Marketing Assistant LATAM Training",
     company: "Zoetis Argentina",
     period: "2024 – 2025",
     description:
-      "Soporte en estrategias de digital marketing para mercados LATAM en empresa farmacéutica multinacional. Gestión y control de materiales visuales asegurando consistencia con la brand identity. Implementación de campañas de email marketing mediante Salesforce Marketing Cloud.",
+      "Soporte en estrategias de digital marketing para mercados LATAM en empresa farmacéutica multinacional. Gestión, verificación y control de materiales visuales asegurando consistencia con la brand identity. Carga, seguimiento y versionado de piezas en Veeva Vault. Implementación de campañas de email marketing mediante Salesforce Marketing Cloud. Creación y mantenimiento de páginas de producto en el sitio web corporativo a través de Crownpeak. Coordinación con equipos regionales y agencias externas para alineación de contenidos digitales.",
   },
   {
     role: "Diseñadora Digital y Community Manager",
     company: "Grupo Morada",
     period: "2023 – 2024",
     description:
-      "Diseño de piezas digitales para redes sociales, campañas publicitarias y branding. Gestión de redes sociales, content planning y engagement con la comunidad. Video editing para contenido promocional y publicitario.",
+      "Diseño de piezas digitales para redes sociales, campañas publicitarias y branding. Social Media Management, Content Planning y Community Management. Video editing para contenido promocional y publicitario. Actualización y mantenimiento básico del sitio web. Soporte en acciones de digital marketing y publicidad online.",
   },
   {
     role: "Diseñadora Digital & Community Manager",
     company: "Fundación el Potrero · Voluntariado",
     period: "2021",
     description:
-      "Gestión de redes sociales y community management. Diseño de materiales visuales para campañas y comunicación digital. Optimización de la presencia digital y fortalecimiento de la identidad institucional.",
+      "Social Media Management y Community Management. Diseño de materiales visuales para campañas y comunicación digital. Optimización de la presencia digital y fortalecimiento de la identidad institucional.",
   },
 ];
 
@@ -220,10 +222,11 @@ export default function AboutMe() {
                 className="text-base md:text-lg font-light leading-relaxed"
                 style={{ color: "hsl(var(--muted))", maxWidth: "520px" }}
               >
-                Diseñadora Digital con experiencia en marketing, branding y gestión de
-                contenidos. Me especializo en crear contenido digital alineado a la
-                identidad de marca, optimizando la presencia digital de las marcas y
-                acompañando objetivos de negocio.
+                Diseñadora Digital con experiencia en Graphic Design, Branding, Content
+                Creation y Digital Marketing para marcas de distintos rubros. Me
+                especializo en Social Media Management, diseño gráfico, edición de video
+                y UX/UI, desarrollando contenido y piezas creativas alineadas a la
+                identidad de marca y a los objetivos de negocio.
               </p>
 
               {/* Languages */}
